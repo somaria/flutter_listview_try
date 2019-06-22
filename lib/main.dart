@@ -24,7 +24,7 @@ void main() {
 class TodosScreen extends StatelessWidget {
   final List<Todo> todos;
 
-  TodosScreen({Key key, @required this.todos}) : super(key: key);
+  TodosScreen({this.todos});
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +37,44 @@ class TodosScreen extends StatelessWidget {
           itemBuilder: (context, index) {
             return ListTile(
               title: Text(todos[index].title),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailScreen(
+                          todo: todos[index],
+                        ),
+                  ),
+                );
+              },
             );
           }),
+    );
+  }
+}
+
+class DetailScreen extends StatelessWidget {
+  final Todo todo;
+
+  DetailScreen({this.todo});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("test")),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Center(
+            child: Container(
+              child: Text(
+                "test" + todo.title,
+                style: TextStyle(fontSize: 24, color: Colors.blue),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
